@@ -9,15 +9,15 @@ const montserrate = Montserrat({ weight: "600", subsets: ["latin"] });
 
 const routes = [
   {
-    label: "Create Podcast",
+    label: "Create Recapp",
     icon: PlusSquare,
     href: "/dashboard",
     color: "text-green-200",
   },
   {
-    label: "My News",
+    label: "My Recappd",
     icon: Newspaper,
-    href: "/dashboard/news",
+    href: "/dashboard/recappd",
     color: "text-green-200",
   },
 ];

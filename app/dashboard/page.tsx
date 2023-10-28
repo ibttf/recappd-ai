@@ -45,7 +45,7 @@ const DashboardPage = () => {
         </p>
       </div>
       <div className="px-4 md:px-20 lg:px-32 space-y-4">
-        <div className="w-full h-full mx-auto mt-10 bg-white p-6 rounded-md shadow-md">
+        <div className="w-full h-full mx-auto mt-10 border border-green-200 border-4 p-6 rounded-md shadow-md">
           <form>
             {/* Categories as buttons */}
             <div className="mb-4 grid grid-cols-2 gap-2 md:grid-cols-4">
@@ -77,7 +77,7 @@ const DashboardPage = () => {
           </form>
           {/* Podcast Length */}
           <div className="w-full flex justify-center flex-col items-center gap-y-4 my-4">
-            <label className="block text-sm font-medium text-gray-600 mb-2">
+            <label className="block text-sm font-medium text-green-600 mb-2">
               Podcast Length: {podcastLength} minutes
             </label>
             <input
