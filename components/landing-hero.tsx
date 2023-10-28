@@ -3,7 +3,9 @@
 import TypewriterComponent from "typewriter-effect";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useConvexAuth } from "convex/react";
 export const LandingHero = () => {
+  const { isLoading, isAuthenticated } = useConvexAuth();
   return (
     <div className="flex">
       <div className="w-full text-green-50 dark:text-white font-bold py-36 pt-80 text-center space-y-5 ">
@@ -20,7 +22,7 @@ export const LandingHero = () => {
           </div>
         </div>
         <div>
-          <Link href="dashboard">
+          <Link href={isAuthenticated ? "/dashboard" : "/sign-up"}>
             <Button
               variant="recappd"
               className="md:text-lg p-4 md:p-6 rounded-full font-semibold"

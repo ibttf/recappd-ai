@@ -4,7 +4,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Montserrat } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { PlusSquare, Newspaper } from "lucide-react";
+import { PlusSquare, Newspaper, Settings } from "lucide-react";
 const montserrate = Montserrat({ weight: "600", subsets: ["latin"] });
 
 const routes = [
@@ -15,9 +15,15 @@ const routes = [
     color: "text-green-200",
   },
   {
-    label: "My Recappd",
+    label: "My Recapps",
     icon: Newspaper,
     href: "/dashboard/recappd",
+    color: "text-green-200",
+  },
+  {
+    label: "Settings",
+    icon: Settings,
+    href: "/dashboard/settings",
     color: "text-green-200",
   },
 ];
@@ -60,6 +66,7 @@ function Sidebar() {
             </Link>
           ))}
         </div>
+        <div></div>
       </div>
     </div>
   );
