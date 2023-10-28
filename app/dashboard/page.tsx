@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 const DashboardPage = () => {
-  const [category, setCategory] = useState<string>("technology");
+  const [category, setCategory] = useState<string>("Technology");
   const [podcastLength, setPodcastLength] = useState<number>(10);
   const [response, setResponse] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -37,58 +37,69 @@ const DashboardPage = () => {
   return (
     <div>
       <div className="mb-8 space-y-4">
-        <h2 className="text-2xl md:text-4xl font-bold text-center">
-          Custom News For You
+        <h2 className="text-2xl md:text-4xl font-bold text-center text-green-400">
+          Create a Podcast
         </h2>
         <p className="text-muted-foreground font-light text-sm md:text-lg text-center">
-          Select a few features and listen to news that interests you.
+          Select the news you want to listen to and generate a podcast now.
         </p>
       </div>
       <div className="px-4 md:px-20 lg:px-32 space-y-4">
-        <div className="w-full max-w-md mx-auto mt-10 bg-white p-6 rounded-md shadow-md">
+        <div className="w-full h-full mx-auto mt-10 bg-white p-6 rounded-md shadow-md">
           <form>
-            {/* Category */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-600 mb-2">
-                Category:
-              </label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full p-2 border rounded-md"
-              >
-                <option value="top">General</option>
-                <option value="business">Business</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="environment">Environment</option>
-                <option value="food">Food</option>
-                <option value="health">Health</option>
-                <option value="politics">Politics</option>
-                <option value="science">Science</option>
-                <option value="sports">Sports</option>
-                <option value="technology">Technology</option>
-                <option value="tourism">Tourism</option>
-                <option value="world">World</option>
-              </select>
+            {/* Categories as buttons */}
+            <div className="mb-4 grid grid-cols-2 gap-2 md:grid-cols-4">
+              {[
+                "Top",
+                "Business",
+                "Entertainment",
+                "Environment",
+                "Food",
+                "Health",
+                "Politics",
+                "Science",
+                "Sports",
+                "Technology",
+                "Tourism",
+                "World",
+              ].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setCategory(cat)}
+                  className={`p-2 border rounded-md ${
+                    category === cat ? "bg-green-200" : "bg-gray-200"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
             </div>
-
-            {/* Podcast Length */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-600 mb-2">
-                Podcast Length: {podcastLength} minutes
-              </label>
-              <input
-                type="range"
-                min="5"
-                max="15"
-                value={podcastLength}
-                onChange={(e) => setPodcastLength(Number(e.target.value))}
-                className="w-full text-green-50"
-              />
-            </div>
+          </form>
+          {/* Podcast Length */}
+          <div className="w-full flex justify-center flex-col items-center gap-y-4 my-4">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
+              Podcast Length: {podcastLength} minutes
+            </label>
+            <input
+              type="range"
+              min="5"
+              max="15"
+              value={podcastLength}
+              onChange={(e) => setPodcastLength(Number(e.target.value))}
+              className="w-1/2 mx-auto h-5 text-green-50 appearance-none bg-green-200 thumb:bg-green-200 thumb:rounded-md"
+              style={{
+                height: "10px",
+                borderRadius: "5px",
+                outline: "none",
+                opacity: "0.7",
+                transition: "opacity .2s",
+              }}
+            />
+          </div>
+          <div className="flex items-center justify-center mt-8 mb-4">
             <Button
               variant="recappd"
-              disabled={loading} // Button is disabled when loading is true
+              disabled={loading}
               onClick={(e) => {
                 e.preventDefault();
                 handleSubmitForm();
@@ -97,7 +108,8 @@ const DashboardPage = () => {
             >
               {loading ? "Loading..." : "Get My Podcast"}
             </Button>
-          </form>
+          </div>
+
           {/* Display the OpenAI response below the form */}
           {response && <p className="mt-5">{response}</p>}
         </div>

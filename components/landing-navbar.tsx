@@ -18,17 +18,12 @@ export const LandingNavbar = () => {
         <div className="relative h-10 w-10 mr-4">
           <Image fill alt="Logo" src="/logo.png" />
         </div>
-        <h1 className="text-2xl font-bold ">Recappd</h1>
+        <h1 className="text-2xl font-bold text-green-50">Recappd</h1>
       </Link>
       <div className="flex items-center gap-x-2">
         {/* <Link href={isSignedIn ? "/dashboard" : "/sign-up"}> */}
         <Link href="/dashboard">
-          <Button
-            variant="outline"
-            className="rounded-full bg-green-50 hover:green-200"
-          >
-            Get Started
-          </Button>
+          <Button variant="recappd">Get Started</Button>
         </Link>
       </div>
     </nav>

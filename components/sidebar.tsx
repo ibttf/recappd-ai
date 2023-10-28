@@ -17,7 +17,7 @@ const routes = [
   {
     label: "My News",
     icon: Newspaper,
-    href: "/news",
+    href: "/dashboard/news",
     color: "text-green-200",
   },
 ];
@@ -32,7 +32,12 @@ function Sidebar() {
           <div className="relative h-10 w-10 mr-4">
             <Image fill alt="Logo" src="/logo.png" />
           </div>
-          <h1 className={cn("text-2xl font-bold", montserrate.className)}>
+          <h1
+            className={cn(
+              "text-2xl font-bold text-green-400",
+              montserrate.className
+            )}
+          >
             Recappd
           </h1>
         </Link>
