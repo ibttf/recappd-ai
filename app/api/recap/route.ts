@@ -6,11 +6,6 @@ const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
 });
 
-const instructionMessage: CreateChatCompletionRequestMessage = {
-  role: "system",
-  content: "Only provide a 100-word summary of the text you're given.",
-};
-
 export async function POST(req: Request) {
   const baseUrl = "https://newsdata.io/api/1/news";
   const body = await req.json();
@@ -23,6 +18,14 @@ export async function POST(req: Request) {
     size: podcastLength,
     language: "en",
   });
+
+  const instructionMessage: CreateChatCompletionRequestMessage = {
+    role: "system",
+    content:
+      "Only provide a " +
+      podcastLength / 3 +
+      "00-word summary of the text you're given.",
+  };
   try {
     const response = await fetch(`${baseUrl}?${params.toString()}`);
 
@@ -31,12 +34,38 @@ export async function POST(req: Request) {
     }
 
     const data = await response.json();
-    let arr = [] as any;
+    let res = "";
     console.log(data.results[0].content);
-    data.results.map((result: any) => {
-      //result.content is what we want to work with in open ai.
-    });
-    return NextResponse.json(arr);
+
+    let combined_content = "";
+    for (const result of data.results) {
+      combined_content += result.content;
+    }
+
+    // Split the combined content into three roughly equal chunks
+    const chunkLength = Math.ceil(combined_content.length / 3);
+    const chunks = [
+      combined_content.slice(0, chunkLength),
+      combined_content.slice(chunkLength, chunkLength * 2),
+      combined_content.slice(chunkLength * 2),
+    ];
+
+    // Send each chunk to OpenAI
+    for (const chunk of chunks) {
+      try {
+        const openaiResponse = await openai.chat.completions.create({
+          model: "gpt-3.5-turbo",
+          messages: [instructionMessage, { role: "user", content: chunk }],
+        });
+
+        console.log(openaiResponse.choices[0].message.content);
+        res += openaiResponse.choices[0].message.content;
+      } catch (error) {
+        console.error("Error calling OpenAI:", error);
+      }
+    }
+
+    return NextResponse.json(res);
   } catch (error) {
     console.log("[CODE_ERROR]", error);
     return new NextResponse("Failed to fetch news", { status: 500 });
