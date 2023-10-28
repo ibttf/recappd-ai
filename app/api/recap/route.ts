@@ -19,12 +19,12 @@ export async function POST(req: Request) {
     language: "en",
   });
 
-  const instructionMessage: CreateChatCompletionRequestMessage = {
+  let instructionMessage: CreateChatCompletionRequestMessage = {
     role: "system",
     content:
-      "Only provide a " +
-      podcastLength / 3 +
-      "00-word summary of the text you're given.",
+      "Provide a " +
+      Math.ceil(podcastLength / 3) +
+      "00-word summary or analysis of the text you're given in an informational way.",
   };
   try {
     const response = await fetch(`${baseUrl}?${params.toString()}`);
@@ -35,7 +35,6 @@ export async function POST(req: Request) {
 
     const data = await response.json();
     let res = "";
-    console.log(data.results[0].content);
 
     let combined_content = "";
     for (const result of data.results) {
@@ -58,7 +57,6 @@ export async function POST(req: Request) {
           messages: [instructionMessage, { role: "user", content: chunk }],
         });
 
-        console.log(openaiResponse.choices[0].message.content);
         res += openaiResponse.choices[0].message.content;
       } catch (error) {
         console.error("Error calling OpenAI:", error);

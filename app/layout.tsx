@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Recappd",
-  description: "Your favorite news, recapped.",
+  description: "Your favorite news, recappd.",
 };
 
 export default function RootLayout({
