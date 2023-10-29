@@ -8,6 +8,7 @@ import useDeleteRecapp from "./useDeleteRecapp";
 import { api } from "../convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { X, PlayIcon } from "lucide-react";
+import DashboardPlay from "./dashboard-play";
 export default function DashboardTemplates({
   userId,
 }: {
@@ -30,7 +31,7 @@ export default function DashboardTemplates({
     deleteTemplate({ templateId: templateId });
   };
 
-  const [isRecappDialogOpen, setRecappDialogOpen] = useState(false);
+  const [currentAudio, setCurrentAudio] = useState<string>("");
   const [isTemplateDialogOpen, setTemplateDialogOpen] = useState(false);
   const [selectedTemplateId, setSelectedTemplateId] =
     useState<Id<"template"> | null>(null);
@@ -148,6 +149,7 @@ export default function DashboardTemplates({
                           "storageId",
                           recapp.storageId
                         );
+                        setCurrentAudio(getAudio.href);
                       }}
                     >
                       {/* Play icon */}
@@ -175,6 +177,7 @@ export default function DashboardTemplates({
           </div>
         </div>
       ))}
+      {currentAudio ? <DashboardPlay audioUrl={currentAudio} /> : <></>}
     </div>
   );
 }
