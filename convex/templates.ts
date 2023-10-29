@@ -7,6 +7,7 @@ export const createRecappTemplate = mutation({
     podcastLength: v.number(),
     podcastInterval: v.number(),
     user_id: v.id("users"),
+    name: v.string(),
   },
   handler: async (ctx, args) => {
     let templateId = "";
@@ -16,6 +17,7 @@ export const createRecappTemplate = mutation({
         length: args.podcastLength,
         interval: args.podcastInterval,
         user_id: args.user_id,
+        name: args.name,
       });
     }
 

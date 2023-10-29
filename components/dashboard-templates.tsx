@@ -1,14 +1,13 @@
 "use client";
 
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "convex/react";
 import useDeleteTemplate from "./useDeleteTemplate";
-import useDeleteRecapp from "./useDeleteRecapp";
 import { api } from "../convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { X, PlayIcon } from "lucide-react";
 import DashboardPlay from "./dashboard-play";
+import Loading from "./Loading";
 export default function DashboardTemplates({
   userId,
 }: {
@@ -24,17 +23,21 @@ export default function DashboardTemplates({
     template_ids: templateIds! || [],
   });
 
-  const deleteRecapp = useDeleteRecapp();
   const deleteTemplate = useDeleteTemplate();
 
-  const handleUnsubscribe = (templateId: Id<"template"> | null) => {
-    deleteTemplate({ templateId: templateId });
-  };
+  const handleUnsubscribe =
+    (templateId: Id<"template"> | null) => (e: React.MouseEvent) => {
+      e.stopPropagation(); // Prevent event from bubbling up
+      console.log("hello");
+      console.log(templateId);
+      deleteTemplate({ templateId: templateId });
+    };
 
   const [currentAudio, setCurrentAudio] = useState<string>("");
   const [isTemplateDialogOpen, setTemplateDialogOpen] = useState(false);
   const [selectedTemplateId, setSelectedTemplateId] =
     useState<Id<"template"> | null>(null);
+  useState<Id<"template"> | null>(null);
 
   const openTemplateDialog = (id: Id<"template">) => {
     setSelectedTemplateId(id);
@@ -42,6 +45,7 @@ export default function DashboardTemplates({
   };
 
   const closeTemplateDialog = () => {
+    console.log("closeTemplateDialog called");
     setSelectedTemplateId(null);
     setTemplateDialogOpen(false);
   };
@@ -49,7 +53,11 @@ export default function DashboardTemplates({
   const convexSiteUrl = process.env.NEXT_PUBLIC_CONVEX_SITE_URL;
 
   if (!userId) {
-    return <div className="spinner text-green-400">Loading...</div>; // Replace with an appropriate spinner component or style
+    return (
+      <div className="spinner text-green-400">
+        <Loading />
+      </div>
+    ); // Replace with an appropriate spinner component or style
   }
 
   return (
@@ -62,9 +70,7 @@ export default function DashboardTemplates({
           <div className="flex justify-between items-center">
             <div>
               {/* Template Information */}
-              <h2 className="font-semibold text-2xl mb-2">
-                {template.category.toUpperCase()}
-              </h2>
+              <h2 className="font-semibold text-2xl mb-2">{template.name!}</h2>
               <div className="flex space-x-12">
                 <p className="text-gray-400 mb-4">
                   Subscribed since:{" "}
@@ -83,47 +89,10 @@ export default function DashboardTemplates({
               </div>
             </div>
 
-            {/* Dialog for Template Deletion */}
-            <Transition show={isTemplateDialogOpen} as={Fragment}>
-              <Dialog
-                as="div"
-                className="fixed inset-0 z-10 overflow-y-auto flex items-center justify-center"
-                onClose={closeTemplateDialog}
-              >
-                <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
-
-                {/* Main Dialog Container */}
-                <div className="bg-white p-10 rounded-lg shadow-xl text-center max-w-lg w-full mx-4">
-                  {/* Dialog Title */}
-                  <Dialog.Title className="text-2xl font-extrabold mb-4">
-                    Are you sure you want to unsubscribe from this podcast?
-                  </Dialog.Title>
-
-                  {/* Buttons */}
-                  <div className="flex justify-between mt-6">
-                    {/* Yes Button */}
-                    <button
-                      onClick={() => handleUnsubscribe(selectedTemplateId)}
-                      className="px-6 py-2 bg-green-500 text-white rounded-full font-bold text-xl hover:bg-green-600"
-                    >
-                      Yes
-                    </button>
-
-                    {/* No Button */}
-                    <button
-                      onClick={closeTemplateDialog}
-                      className="px-6 py-2 bg-red-500 text-white rounded-full font-bold text-xl hover:bg-red-600"
-                    >
-                      No
-                    </button>
-                  </div>
-                </div>
-              </Dialog>
-            </Transition>
             <div
               onClick={(e) => {
                 e.preventDefault(); // Prevent navigation
-                openTemplateDialog(template._id);
+                handleUnsubscribe(template._id)(e);
               }}
               className="text-right cursor-pointer"
             >
@@ -132,7 +101,7 @@ export default function DashboardTemplates({
           </div>
 
           {/* Recapps */}
-          <div className="flex mx-4">
+          <div className="flex mx-4 space-x-12">
             {recapps?.map((recapp) => {
               if (recapp.template_id === template._id) {
                 return (

@@ -46,7 +46,7 @@ const DashboardHeader = ({ userId }: { userId: Id<"users"> | null }) => {
 
   const createTemplate = useCreateTemplateEffect();
 
-  const [name, setName] = useState<string>("Technology");
+  const [name, setName] = useState<string>("");
   const [category, setCategory] = useState<string>("Technology");
   const [podcastLength, setPodcastLength] = useState(4); // Initial value set to 0
 
@@ -88,6 +88,7 @@ const DashboardHeader = ({ userId }: { userId: Id<"users"> | null }) => {
       }
       console.log("very beginning of handle submit form is working");
       const templateId = await createTemplate({
+        name: name,
         category: category.toLowerCase(),
         podcastLength: podcastLength,
         podcastInterval: podcastInterval,
@@ -230,8 +231,8 @@ const DashboardHeader = ({ userId }: { userId: Id<"users"> | null }) => {
       {/* Large TextInput */}
       <input
         type="text"
-        value={podcastName}
-        onChange={(e) => setPodcastName(e.target.value)}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
         placeholder={defaultPlaceholder}
         className="w-full text-black font-extrabold text-4xl border-none outline-none focus:ring-0 bg-transparent border-b-2 border-green-500 focus:border-green-700"
       />
@@ -250,7 +251,7 @@ const DashboardHeader = ({ userId }: { userId: Id<"users"> | null }) => {
           onClick={handleSubmitForm}
           className={`${
             loading
-              ? "hover:cursor-disabled opacity-80"
+              ? "bg-green-500 opacity-80"
               : "bg-green-500 hover:bg-green-600 opacity-100"
           } w-full md:w-2/3 lg:w-1/2 px-6 py-4 rounded-xl  text-white text-2xl font-bold focus:outline-none  transition-colors`}
         >

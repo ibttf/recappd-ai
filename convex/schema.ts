@@ -10,6 +10,7 @@ export default defineSchema({
     .index("by_name", ["name"]),
 
   template: defineTable({
+    name: v.optional(v.string()),
     category: v.string(),
     length: v.number(),
     interval: v.number(),

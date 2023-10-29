@@ -1,5 +1,4 @@
 "use client";
-
 import TypewriterComponent from "typewriter-effect";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -32,9 +31,12 @@ export const LandingHero = () => {
           </Link>
         </div>
       </div>
-      <div className="flex w-full justify-center items-center pt-60">
-        <div className="h-96 flex rounded-xl bg-white w-full">
-          INSERT A VIDEO ON HOW TO USE
+      <div className="w-3/4 flex flex-col justify-center items-end pt-60 pr-10 space-y-4">
+        <div className="rounded-xl transform -rotate-3">
+          <img src="/home1.png" className="rounded-xl shadow-lg"></img>
+        </div>
+        <div className="rounded-xl transform rotate-3 -mt-10">
+          <img src="/home2.png" className="rounded-xl shadow-lg"></img>
         </div>
       </div>
     </div>

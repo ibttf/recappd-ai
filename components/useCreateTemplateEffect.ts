@@ -5,17 +5,20 @@ import { Id } from "../convex/_generated/dataModel";
 export default function useCreateTemplateEffect() {
   const createRecappTemplate = useMutation(api.templates.createRecappTemplate);
   async function createTemplate({
+    name,
     category,
     podcastLength,
     podcastInterval,
     userId,
   }: {
+    name: string;
     category: string;
     podcastLength: number;
     podcastInterval: number;
     userId: Id<"users"> | null;
   }) {
     const template = await createRecappTemplate({
+      name,
       category,
       podcastLength,
       podcastInterval,
