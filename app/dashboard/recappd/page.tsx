@@ -1,4 +1,8 @@
+"use client";
+import DashboardTemplates from "@/components/dashboard-templates";
+import useStoreUserEffect from "../useStoreUserEffect";
 const NewsPage = () => {
+  const userId = useStoreUserEffect();
   return (
     <div>
       <div className="mb-8 space-y-4">
@@ -9,7 +13,9 @@ const NewsPage = () => {
           See the recapps you&rsquo;ve made in the past.
         </p>
       </div>
-      <div className="px-4 md:px-20 lg:px-32 space-y-4"></div>
+      <div className="px-4 md:px-20 lg:px-32 space-y-4">
+        <DashboardTemplates userId={userId} />
+      </div>
     </div>
   );
 };

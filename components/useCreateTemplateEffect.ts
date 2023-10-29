@@ -1,6 +1,6 @@
 import { useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
-import { Id } from "../../convex/_generated/dataModel";
+import { api } from "../convex/_generated/api";
+import { Id } from "../convex/_generated/dataModel";
 
 export default function useCreateTemplateEffect() {
   const createRecappTemplate = useMutation(api.templates.createRecappTemplate);
@@ -21,6 +21,7 @@ export default function useCreateTemplateEffect() {
       podcastInterval,
       user_id: userId!,
     });
+    return template;
   }
   return createTemplate;
 }
