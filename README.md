@@ -5,7 +5,7 @@ One of our teammates Cameron White is famous at our college, both for being busy
 Poor Cameron! 
 
 Although we all admire how passionately he lives his life, this passion does not come without cost. Cameron does not know who the governor of California is and was very recently shocked to learn that Leonardo Da Vinci had already died. 
-========================================================================
+************************************************************************************************************************************************************************************
 With the rise of the internet, faster communication, and long-distance transportation, you would think that people would know more about each other than ever, but that's just not true. Just like our buddy Cameron, people all around the world don't know what's NEW (get it, like the NEWs??).
 
 Recappd was designed to help people who struggle to find the time to keep up with the news. Real-time and powered by AI, Recappd allows users to create custom podcasts on the latest news that interests them, as frequently as they'd like, and as long as they'd like.
