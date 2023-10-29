@@ -7,7 +7,7 @@ export default function Page() {
   const userId = useStoreUserEffect();
   return (
     <div>
-      <DashboardHeader />
+      <DashboardHeader userId={userId} />
       <DashboardTemplates userId={userId} />
     </div>
   );
