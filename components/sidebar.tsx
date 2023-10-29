@@ -4,20 +4,14 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Montserrat } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { PlusSquare, Newspaper, Settings } from "lucide-react";
+import { Library, Settings } from "lucide-react";
 const montserrate = Montserrat({ weight: "600", subsets: ["latin"] });
 
 const routes = [
   {
-    label: "Create Recapp",
-    icon: PlusSquare,
+    label: "Recapps",
+    icon: Library,
     href: "/dashboard",
-    color: "text-green-200",
-  },
-  {
-    label: "My Recapps",
-    icon: Newspaper,
-    href: "/dashboard/recappd",
     color: "text-green-200",
   },
   {

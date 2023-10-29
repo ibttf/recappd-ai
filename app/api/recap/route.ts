@@ -6,6 +6,7 @@ import { ConvexHttpClient } from "convex/browser";
 import { api } from "@/convex/_generated/api";
 import fs from "fs";
 import util from "util";
+
 // HTTP client
 const httpClient = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
@@ -32,7 +33,7 @@ export async function POST(req: Request) {
   let instructionMessage: CreateChatCompletionRequestMessage = {
     role: "system",
     content:
-      "Provide a 200-word summary or analysis of the text you're given in an informational way.",
+      "Provide a 100-word summary or analysis of the text you're given in an informational way.",
   };
   try {
     const respo = await fetch(`${baseUrl}?${params.toString()}`);
@@ -84,7 +85,9 @@ export async function POST(req: Request) {
     console.log("response", response);
     const writeFile = util.promisify(fs.writeFile);
     await writeFile("./output.mp3", response.audioContent, "binary");
+
     console.log("Audio content written to file: output.mp3");
+
     const postUrl = await httpClient.mutation(api.recapp.generateUploadUrl);
     console.log("post url", postUrl);
     console.log(response.audioContent.slice(0, 50));

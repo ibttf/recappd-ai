@@ -41,9 +41,6 @@ export default function DashboardTemplates({
 
   return (
     <div className="text-white p-4 space-y-4 h-full">
-      <h3 className="text-2xl md:text-3xl font-bold text-center text-green-400">
-        Subscribed Recapps
-      </h3>
       {templates?.map((template) => (
         <div key={template._creationTime}>
           <a href="/dashboard/recappd" className="block relative">
