@@ -5,27 +5,27 @@ export const generateUploadUrl = mutation(async (ctx) => {
   return await ctx.storage.generateUploadUrl();
 });
 
-export const createRecapp = mutation({
+export const createRecappFunction = mutation({
   args: {
+    name: v.string(),
     storageId: v.string(),
     transcript: v.string(),
-    name: v.optional(v.string()),
     template_id: v.id("template"),
   },
   handler: async (ctx, args) => {
+    let recap_id = "";
     if (args.template_id !== null) {
-      const taskId = await ctx.db.insert("recapp", {
+      recap_id = await ctx.db.insert("recapp", {
+        name: args.name,
         storageId: args.storageId,
         transcript: args.transcript,
-        name: args.name,
         template_id: args.template_id,
       });
     }
 
-    return;
+    return recap_id;
   },
 });
-
 export const deleteRecapp = mutation({
   args: {
     id: v.id("recapp"),
@@ -34,27 +34,33 @@ export const deleteRecapp = mutation({
     if (args.id !== null) {
       await ctx.db.delete(args.id);
     }
+
     return;
   },
 });
 
-// export const getRecappTemplates = query({
-//   args: {
-//     template_id: v.id("template"),
-//   },
-//   handler: async (ctx, args) => {
-//     // Ensure the template_id argument is provided
-//     if (!args.template_id) {
-//       return;
-//     }
-
-//     // Query the recapp table for recapps where template_id matches the provided template_id
-//     const templates = await ctx.db
-//       .query("recapp")
-//       .filter((q) => q.eq(q.field("template_id"), args.template_id))
-//       .order("desc")
-//       .take(100);
-
-//     return templates;
-//   },
-// });
+export const getRecapps = query({
+  args: {
+    template_ids: v.array(v.union(v.id("template"), v.null())),
+  },
+  handler: async (ctx, args) => {
+    // Ensure the template_id argument is provided
+    if (!args.template_ids) {
+      return;
+    }
+    // console.log(args.template_ids);
+    let recapps = [] as any[];
+    for (const template_id of args.template_ids) {
+      // console.log(template_id);
+      recapps = recapps.concat(
+        await ctx.db
+          .query("recapp")
+          .filter((q) => q.eq(q.field("template_id"), template_id))
+          .collect()
+      );
+    }
+    // Query the recapps table for recapps where template_id matches the provided template_id
+    // console.log(recapps);
+    return recapps;
+  },
+});

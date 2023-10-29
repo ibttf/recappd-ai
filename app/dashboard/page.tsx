@@ -9,10 +9,8 @@ const DashboardPage = () => {
   const userId = useStoreUserEffect();
 
   const createTemplate = useCreateTemplateEffect();
-  interface ResponseProps {
-    text: string;
-    file: string;
-  }
+
+  const [name, setName] = useState<string>("Technology");
   const [category, setCategory] = useState<string>("Technology");
   const [podcastLength, setPodcastLength] = useState<number>(10);
   const [podcastInterval, setPodcastInterval] = useState<number>(1);
@@ -40,6 +38,7 @@ const DashboardPage = () => {
           podcastLength: podcastLength,
           podcastInterval: podcastInterval,
           templateId,
+          name,
         }),
       });
       console.log("response recieved", response);
