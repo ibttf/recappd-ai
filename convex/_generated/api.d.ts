@@ -14,6 +14,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as crons from "../crons";
 import type * as http from "../http";
 import type * as recapp from "../recapp";
 import type * as templates from "../templates";
@@ -28,6 +29,7 @@ import type * as users from "../users";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  crons: typeof crons;
   http: typeof http;
   recapp: typeof recapp;
   templates: typeof templates;

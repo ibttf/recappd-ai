@@ -9,15 +9,16 @@ export const LandingHero = () => {
     <div className="flex">
       <div className="w-full text-green-50 dark:text-white font-bold py-36 pt-80 text-center space-y-5 ">
         <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl space-y-5 font-extrabold ">
-          <h1>Get Your News</h1>
-          <div className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-green-700 pb-4">
+          <h1>News On</h1>
+          <div className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-green-900 pb-4">
             <TypewriterComponent
               options={{
-                strings: ["Recappd."],
+                strings: ["Tech", "Finance", "The Kardashians"],
                 autoStart: true,
                 loop: true,
               }}
             />
+            <h1 className="text-green-50">Recappd.</h1>
           </div>
         </div>
         <div>
