@@ -21,6 +21,7 @@ export default function useCreateTemplateEffect() {
       podcastInterval,
       user_id: userId!,
     });
+    return template;
   }
   return createTemplate;
 }

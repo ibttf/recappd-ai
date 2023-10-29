@@ -4,44 +4,52 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import useStoreUserEffect from "./useStoreUserEffect";
 import useCreateTemplateEffect from "./useCreateTemplateEffect";
-import DashboardTemplates from "@/components/dashboard-templates";
+
 const DashboardPage = () => {
   const userId = useStoreUserEffect();
-  const createTemplate = useCreateTemplateEffect();
 
+  const createTemplate = useCreateTemplateEffect();
+  interface ResponseProps {
+    text: string;
+    file: string;
+  }
   const [category, setCategory] = useState<string>("Technology");
   const [podcastLength, setPodcastLength] = useState<number>(10);
   const [podcastInterval, setPodcastInterval] = useState<number>(1);
-  const [response, setResponse] = useState<string>("");
+
   const [loading, setLoading] = useState<boolean>(false);
 
   async function handleSubmitForm() {
     setLoading(true);
     try {
-      createTemplate({
+      console.log("very beginning of handle submit form is working");
+      const templateId = await createTemplate({
         category: category.toLowerCase(),
         podcastLength: podcastLength,
         podcastInterval: podcastInterval,
         userId: userId,
       });
-      // const response = await fetch("/api/recap", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     category: category.toLowerCase(),
-      //     podcastLength: podcastLength,
-      //     podcastInterval: podcastInterval,
-      //   }),
-      // });
+      console.log("template id created", templateId);
+      const response = await fetch("/api/recap", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          category: category.toLowerCase(),
+          podcastLength: podcastLength,
+          podcastInterval: podcastInterval,
+          templateId,
+        }),
+      });
+      console.log("response recieved", response);
 
-      // if (!response.ok) {
-      //   throw new Error("Response from server was not ok");
-      // }
+      if (!response.ok) {
+        throw new Error("Response from server was not ok");
+      }
 
-      // const data = await response.json();
-      // setResponse(data); // Set the response data to the state variable
+      const data = await response.json();
+      console.log(data);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -146,12 +154,8 @@ const DashboardPage = () => {
               {loading ? "Loading..." : "Create My Template"}
             </Button>
           </div>
-
-          {/* Display the OpenAI response below the form */}
-          {response && <p className="mt-5">{response}</p>}
         </div>
       </div>
-      <DashboardTemplates userId={userId} />
     </div>
   );
 };

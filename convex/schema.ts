@@ -23,5 +23,6 @@ export default defineSchema({
     storageId: v.string(),
     transcript: v.string(),
     template_id: v.id("template"), // This correlates with the ids of the 'template' table.
+    name: v.optional(v.string()),
   }).index("by_template", ["template_id"]),
 });

@@ -14,6 +14,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as recapp from "../recapp";
 import type * as templates from "../templates";
 import type * as users from "../users";
 
@@ -26,6 +27,7 @@ import type * as users from "../users";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  recapp: typeof recapp;
   templates: typeof templates;
   users: typeof users;
 }>;

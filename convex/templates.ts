@@ -9,8 +9,9 @@ export const createRecappTemplate = mutation({
     user_id: v.id("users"),
   },
   handler: async (ctx, args) => {
+    let templateId = "";
     if (args.user_id !== null) {
-      const taskId = await ctx.db.insert("template", {
+      templateId = await ctx.db.insert("template", {
         category: args.category,
         length: args.podcastLength,
         interval: args.podcastInterval,
@@ -18,7 +19,19 @@ export const createRecappTemplate = mutation({
       });
     }
 
-    return args.user_id;
+    return templateId;
+  },
+});
+export const deleteRecappTemplate = mutation({
+  args: {
+    id: v.id("template"),
+  },
+  handler: async (ctx, args) => {
+    if (args.id !== null) {
+      await ctx.db.delete(args.id);
+    }
+
+    return;
   },
 });
 
