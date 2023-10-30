@@ -39,11 +39,15 @@ export async function POST(req: Request) {
     const respo = await fetch(`${baseUrl}?${params.toString()}`);
 
     if (!respo.ok) {
-      throw new Error("Network response was not ok");
+      throw new Error("Network response from newsdata api was not ok");
     }
 
     const data = await respo.json();
     let res = "";
+
+    console.log(
+      "network response from newsdata api was okay and came back as a json."
+    );
 
     let combined_content = "";
     for (const result of data.results) {
