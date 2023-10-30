@@ -274,7 +274,7 @@ const DashboardHeader = ({ userId }: { userId: Id<"users"> | null }) => {
         </h2>
         <div className="flex items-center flex-col justify-center mr-24 space-y-4">
           <button type="button" onClick={openModal} className="">
-            <Plus className="text-white bg-green-400 rounded-full h-12 w-12 p-2 hover:bg-green-600 duration-200 hover:cursor-pointer"></Plus>
+            <Plus className="text-white bg-green-400 rounded-full md:h-12 md:w-12 w-8 h-6 md:p-2 p-1 hover:bg-green-600 duration-200 hover:cursor-pointer"></Plus>
           </button>
         </div>
       </div>

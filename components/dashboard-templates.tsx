@@ -34,21 +34,6 @@ export default function DashboardTemplates({
     };
 
   const [currentAudio, setCurrentAudio] = useState<string>("");
-  const [isTemplateDialogOpen, setTemplateDialogOpen] = useState(false);
-  const [selectedTemplateId, setSelectedTemplateId] =
-    useState<Id<"template"> | null>(null);
-  useState<Id<"template"> | null>(null);
-
-  const openTemplateDialog = (id: Id<"template">) => {
-    setSelectedTemplateId(id);
-    setTemplateDialogOpen(true);
-  };
-
-  const closeTemplateDialog = () => {
-    console.log("closeTemplateDialog called");
-    setSelectedTemplateId(null);
-    setTemplateDialogOpen(false);
-  };
 
   const convexSiteUrl = process.env.NEXT_PUBLIC_CONVEX_SITE_URL;
 
@@ -57,9 +42,15 @@ export default function DashboardTemplates({
       <div className="spinner text-green-400">
         <Loading />
       </div>
-    ); // Replace with an appropriate spinner component or style
+    );
   }
-
+  if (!templates || templates.length == 0) {
+    return (
+      <div className="text-red-400 md:text-3xl text-2xl font-semibold p-8 space-y-4 h-full bg-gray-700 text-center">
+        No recapps found.
+      </div>
+    );
+  }
   return (
     <div className="text-white p-4 space-y-4 h-full bg-gray-700">
       {templates?.map((template) => (
@@ -77,6 +68,10 @@ export default function DashboardTemplates({
                   <span className="text-white">
                     {new Date(template._creationTime).toLocaleDateString()}
                   </span>
+                </p>
+                <p className="text-gray-400 ml-4">
+                  Category:{" "}
+                  <span className="text-white">{template.category}</span>
                 </p>
                 <p className="text-gray-400 ml-4">
                   Average length:{" "}
