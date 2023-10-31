@@ -24,9 +24,9 @@ export async function POST(req: Request) {
   const params = new URLSearchParams({
     apikey: process.env.NEXT_PUBLIC_NEWS_API_KEY as string,
     timeframe: "48",
-    category: category,
+    category: category as string,
     full_content: "1",
-    size: podcastLength,
+    size: podcastLength as string,
     language: "en",
   });
   console.log("params is good");
