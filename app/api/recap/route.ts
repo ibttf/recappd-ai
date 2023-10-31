@@ -20,8 +20,9 @@ export async function POST(req: Request) {
   const baseUrl = "https://newsdata.io/api/1/news";
   const body = await req.json();
   const { category, podcastLength, name, templateId } = body;
+  console.log(process.env.NEXT_PUBLIC_NEWS_API_KEY);
   const params = new URLSearchParams({
-    apikey: process.env.NEWS_API_KEY as string,
+    apikey: process.env.NEXT_PUBLIC_NEWS_API_KEY as string,
     timeframe: "48",
     category: category,
     full_content: "1",
