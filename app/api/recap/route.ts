@@ -40,10 +40,9 @@ export async function POST(req: Request) {
     console.log(params);
     const respo = await fetch(`${baseUrl}?${params.toString()}`);
 
-    const responseBody = await respo.text();
     if (!respo.ok) {
       throw new Error(
-        `Network response from newsdata api was not ok. Response body: ${responseBody}`
+        `Network response from newsdata api was not ok. Response body:`
       );
     }
 
