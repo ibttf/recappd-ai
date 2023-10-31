@@ -94,7 +94,6 @@ const DashboardHeader = ({ userId }: { userId: Id<"users"> | null }) => {
         podcastInterval: podcastInterval,
         userId: userId,
       });
-      console.log("template id created", templateId);
       const response = await fetch("/api/recap", {
         method: "POST",
         headers: {

@@ -36,17 +36,21 @@ export async function POST(req: Request) {
       "Provide a 100-word summary or analysis of the text you're given in an informational way.",
   };
   try {
+    console.log(params);
     const respo = await fetch(`${baseUrl}?${params.toString()}`);
 
+    const responseBody = await respo.text();
     if (!respo.ok) {
-      throw new Error("Network response from newsdata api was not ok");
+      throw new Error(
+        `Network response from newsdata api was not ok. Response body: ${responseBody}`
+      );
     }
 
     const data = await respo.json();
     let res = "";
 
     console.log(
-      "network response from newsdata api was okay and came back as a json."
+      "network response from newsdata was okay and came back as a json."
     );
 
     let combined_content = "";

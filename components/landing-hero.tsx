@@ -1,6 +1,7 @@
 "use client";
 import TypewriterComponent from "typewriter-effect";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useConvexAuth } from "convex/react";
 export const LandingHero = () => {
@@ -34,10 +35,18 @@ export const LandingHero = () => {
       </div>
       <div className="w-3/4 flex flex-col justify-center items-end pt-60 pr-10 space-y-4">
         <div className="rounded-xl transform -rotate-3">
-          <img src="/home1.png" className="rounded-xl shadow-lg"></img>
+          <Image
+            src="/home1.png"
+            alt="home-logo"
+            className="rounded-xl shadow-lg"
+          />
         </div>
         <div className="rounded-xl transform rotate-3 -mt-10">
-          <img src="/home2.png" className="rounded-xl shadow-lg"></img>
+          <Image
+            src="/home2.png"
+            alt="home-logo"
+            className="rounded-xl shadow-lg"
+          />
         </div>
       </div>
     </div>
