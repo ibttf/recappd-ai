@@ -7,6 +7,9 @@ import { api } from "@/convex/_generated/api";
 import fs from "fs";
 import util from "util";
 
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 // HTTP client
 const httpClient = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
@@ -71,12 +74,17 @@ export async function POST(req: Request) {
     // Send each chunk to OpenAI
     for (const chunk of chunks) {
       try {
+        console.log("creating open ai response.");
         const openaiResponse = await openai.chat.completions.create({
           model: "gpt-3.5-turbo",
           messages: [instructionMessage, { role: "user", content: chunk }],
         });
+        console.log("finished collecting open ai response");
 
         res += openaiResponse.choices[0].message.content;
+        if (chunks.indexOf(chunk) < chunks.length - 1) {
+          await delay(2000);
+        }
       } catch (error) {
         console.error("Error calling OpenAI:", error);
       }
