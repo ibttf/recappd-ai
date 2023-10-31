@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       "Provide a 100-word summary or analysis of the text you're given in an informational way.",
   };
   try {
-    console.log(params);
+    console.log(params.apiKey);
     const respo = await fetch(`${baseUrl}?${params.toString()}`);
 
     const responseBody = await respo.text();
