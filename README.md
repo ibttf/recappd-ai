@@ -1,5 +1,5 @@
-## Recappd Project
-### Inspiration
+## Recappd AI
+### General
 This project was built in 48 hours in a team of three as part of CalHacks 10.0.
 
 Deployed on: [Recappd](https://recappd.live)
