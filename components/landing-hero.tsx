@@ -38,6 +38,8 @@ export const LandingHero = () => {
           <Image
             src="/home1.png"
             alt="home-logo"
+            width={600}
+            height={400}
             className="rounded-xl shadow-lg"
           />
         </div>
@@ -45,6 +47,8 @@ export const LandingHero = () => {
           <Image
             src="/home2.png"
             alt="home-logo"
+            width={600}
+            height={400}
             className="rounded-xl shadow-lg"
           />
         </div>

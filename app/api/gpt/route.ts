@@ -4,8 +4,6 @@ import { api } from "@/convex/_generated/api";
 import { NextResponse } from "next/server";
 import { TextToSpeechClient } from "@google-cloud/text-to-speech";
 import { CreateChatCompletionRequestMessage } from "openai/resources/chat/index.mjs";
-import fs from "fs";
-import util from "util";
 
 // HTTP client
 const httpClient = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
@@ -19,14 +17,19 @@ function delay(ms: number) {
 }
 //body needs to take in data from prev post requst, name ,and templateId
 export async function POST(req: Request) {
+  console.log("starting gpt route");
+
   let instructionMessage: CreateChatCompletionRequestMessage = {
     role: "system",
     content:
       "Provide a 100-word summary or analysis of the text you're given in an informational way.",
   };
   let combined_content = "";
-  let { data, name, templateId }: any = req.body;
-  for (const result of data.results) {
+  const body = await req.json();
+  let { data, name, templateId }: any = body;
+  console.log(data, name, templateId);
+  console.log("data", data);
+  for (const result of data) {
     combined_content += result.content;
   }
 
@@ -69,10 +72,6 @@ export async function POST(req: Request) {
 
   const [response] = await client.synthesizeSpeech(request);
   console.log("response", response);
-  const writeFile = util.promisify(fs.writeFile);
-  await writeFile("./output.mp3", response.audioContent, "binary");
-
-  console.log("Audio content written to file: output.mp3");
 
   const postUrl = await httpClient.mutation(api.recapp.generateUploadUrl);
   console.log("post url", postUrl);

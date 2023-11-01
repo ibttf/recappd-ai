@@ -112,19 +112,22 @@ const DashboardHeader = ({ userId }: { userId: Id<"users"> | null }) => {
       }
 
       const data = await newsDataResponse.json();
+      console.log("news Data response .json", data);
 
+      const testdata = { results: "this is a random test string" };
       const gptResponse = await fetch("/api/gpt", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          data,
+          data: data.results,
           templateId,
           name: finalName,
         }),
       });
 
+      console.log("gpt response", gptResponse);
       if (!gptResponse.ok) {
         throw new Error("gptResponse from server was not ok");
       }
