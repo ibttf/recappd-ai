@@ -94,7 +94,7 @@ const DashboardHeader = ({ userId }: { userId: Id<"users"> | null }) => {
         podcastInterval: podcastInterval,
         userId: userId,
       });
-      const response = await fetch("/api/recap", {
+      const newsDataResponse = await fetch("/api/recap", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,18 +103,35 @@ const DashboardHeader = ({ userId }: { userId: Id<"users"> | null }) => {
           category: category.toLowerCase(),
           podcastLength: podcastLength,
           podcastInterval: podcastInterval,
+        }),
+      });
+      console.log("response recieved", newsDataResponse);
+
+      if (!newsDataResponse.ok) {
+        throw new Error("newsDataResponse from server was not ok");
+      }
+
+      const data = await newsDataResponse.json();
+
+      const gptResponse = await fetch("/api/gpt", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data,
           templateId,
           name: finalName,
         }),
       });
-      console.log("response recieved", response);
 
-      if (!response.ok) {
-        throw new Error("Response from server was not ok");
+      if (!gptResponse.ok) {
+        throw new Error("gptResponse from server was not ok");
       }
 
-      const data = await response.json();
-      console.log(data);
+      const finalData = await gptResponse.json();
+
+      console.log(finalData);
     } catch (error) {
       console.error("Error:", error);
     } finally {
