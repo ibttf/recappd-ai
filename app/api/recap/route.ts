@@ -83,7 +83,7 @@ export async function POST(req: Request) {
 
         res += openaiResponse.choices[0].message.content;
         if (chunks.indexOf(chunk) < chunks.length - 1) {
-          await delay(2000);
+          await delay(1000);
         }
       } catch (error) {
         console.error("Error calling OpenAI:", error);
