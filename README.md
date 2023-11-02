@@ -3,6 +3,7 @@
 This project was built in 48 hours in a team of three as part of CalHacks 10.0.
 
 Deployed on: [Recappd](https://recappd.live)
+View Demo: [Demo](https://youtu.be/WWvKcsBsNW0)
 
 If the live doesn't work, then it very likely means we ran out of free credits for one of our various APIs. Let us know with a message or check out how it works in development by following the instructions below:
 
